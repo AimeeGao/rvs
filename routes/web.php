@@ -22,6 +22,7 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/', fn() => redirect('/login'));
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::get('/applogin', [UserController::class, 'appLogin'])->name('app-login');
+Route::get('/portal-login', [UserController::class, 'appLogin']); // Alias for Keycloak redirect compatibility
 Route::middleware(['auth'])->get('/home', [UserController::class, 'home'])->name('home');
 Route::post('/pdex-login', [UserController::class, 'pdexLogin'])
     ->withoutMiddleware([AppCsrf::class, FrameworkCsrf::class])

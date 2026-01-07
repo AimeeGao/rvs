@@ -41,7 +41,8 @@ class LfpEditRequest extends FormRequest
             'sin' => 'required',
             'profession' => 'nullable', 'employer' => 'nullable', 'employment_status' => 'nullable', 'community' => 'nullable',
             'declined_removed_reason' => 'nullable', 'risk_sharing_guaranteed' => 'nullable', 'direct_lend' => 'nullable',
-            'app_idx' => 'nullable', 'full_name_alias' => 'nullable', 'comment' => 'nullable'
+            'app_idx' => 'nullable', 'full_name_alias' => 'nullable', 'comment' => 'nullable',
+            'both_eligibility_status' => 'required|boolean',
         ];
     }
 
@@ -59,6 +60,11 @@ class LfpEditRequest extends FormRequest
 
         if (isset($this->full_name_alias)) {
             $this->merge(['full_name_alias' => Str::title($this->full_name_alias)]);
+        }
+
+        // Convert both_eligibility_status to boolean
+        if ($this->has('both_eligibility_status')) {
+            $this->merge(['both_eligibility_status' => filter_var($this->both_eligibility_status, FILTER_VALIDATE_BOOLEAN)]);
         }
     }
 }

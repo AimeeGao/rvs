@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\DB;
  * @property string|null $first_name
  * @property string|null $last_name
  * @property string|null $comment
+ * @property bool $both_eligibility_status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -37,6 +38,7 @@ class Lfp extends ModuleModel
     protected $fillable = [
         'application_id', 'sin', 'profession', 'employer', 'employment_status', 'community', 'declined_removed_reason',
         'app_idx', 'direct_lend', 'risk_sharing_guaranteed', 'full_name_alias', 'first_name', 'last_name', 'comment',
+        'both_eligibility_status',
         ];
 
     /**

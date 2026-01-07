@@ -53,7 +53,7 @@ class IntakeEditRequest extends FormRequest
             'denial_reason' => 'nullable',
             'amount_owing' => 'nullable|numeric',
             'comment' => 'nullable|string',
-
+            'both_eligibility_status' => 'required|boolean',
         ];
     }
 
@@ -65,5 +65,10 @@ class IntakeEditRequest extends FormRequest
     #[Override]
     protected function prepareForValidation(): void {
         $this->merge(['sin' => str_replace(' ', '', ($this->sin))]);
+
+        // Convert both_eligibility_status to boolean
+        if ($this->has('both_eligibility_status')) {
+            $this->merge(['both_eligibility_status' => filter_var($this->both_eligibility_status, FILTER_VALIDATE_BOOLEAN)]);
+        }
     }
 }

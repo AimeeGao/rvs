@@ -60,6 +60,20 @@ class PaymentEditRequest extends FormRequest
             'proposed_hrs_of_service' => 'numeric|nullable',
 //            'sfas_pay_status' => 'nullable',
             'oc_pay_status' => 'nullable',
+            'both_eligibility_status' => 'required|boolean',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    #[Override]
+    protected function prepareForValidation(): void {
+        // Convert both_eligibility_status to boolean
+        if ($this->has('both_eligibility_status')) {
+            $this->merge(['both_eligibility_status' => filter_var($this->both_eligibility_status, FILTER_VALIDATE_BOOLEAN)]);
+        }
     }
 }

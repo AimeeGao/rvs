@@ -101,7 +101,7 @@ class PaymentController extends Controller
                 'anniversary_date', 'proposed_pay_date', 'proposed_pay_amount',
                 'proposed_hrs_of_service',	'sfas_pay_status',	'oc_pay_status',
                 'lfpApp_sin', 'lfpApp_profession', 'lfpApp_employer', 'lfpApp_employment_status', 'lfpApp_community',
-                'lfpApp_declined_removed_reason', ];
+                'lfpApp_declined_removed_reason', 'both_eligibility_status', ];
 
             //default to exporting awarded
             $payments = $payments->get();
