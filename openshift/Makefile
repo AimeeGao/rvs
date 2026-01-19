@@ -105,6 +105,20 @@ deploy-web:
 	$(call rollout_and_wait,dc/$(HOST_PREFIX))
 	@echo "+\n++ FINISHED Deploying Web\n+"
 
+migrate-lfp:
+	@echo "+\n++ Running LFP Database Migrations\n+"
+	test -n "$(NAMESPACE)"
+	test -n "$(HOST_PREFIX)"
+	@POD_NAME=$$(oc -n $(NAMESPACE) get pods -l deploymentconfig=$(HOST_PREFIX) --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}'); \
+	if [ -z "$$POD_NAME" ]; then \
+		echo "WARNING: No running pod found. Skipping migration on first deployment."; \
+		echo "Run manually after deployment: oc -n $(NAMESPACE) exec <pod> -- php artisan migrate --database=lfp --force"; \
+		exit 0; \
+	fi; \
+	echo "Running migration in pod: $$POD_NAME"; \
+	oc -n $(NAMESPACE) exec $$POD_NAME -- php artisan migrate --database=lfp --force || exit 1
+	@echo "+\n++ FINISHED LFP Migrations\n+"
+
 build-patroni:
 	@oc -n $(BUILD_NAMESPACE) process -f patroni-build.yaml -p NAME=rvs-patroni -p TAG="12.4-latest" -p BASE_IMAGE_NAME=postgres -p BASE_IMAGE_TAG="12.4" -p SOURCE_REPOSITORY_REF="main" -p SOURCE_CONTEXT_DIR="apps/pgsql/patroni/docker" | oc -n $(BUILD_NAMESPACE) apply -f -
 	@oc -n $(BUILD_NAMESPACE) start-build bc/rvs-patroni --wait

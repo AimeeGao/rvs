@@ -15,6 +15,13 @@
             </a>
         </th>
         <th scope="col">
+            <a href="#" @click="switchSort('sin')">
+                <span>SIN</span>
+                <em v-if="sortClmn === 'sin' && sortType === 'desc'" class="bi bi-sort-numeric-up"></em>
+                <em v-else class="bi bi-sort-numeric-down"></em>
+            </a>
+        </th>
+        <th scope="col">
             <a href="#" @click="switchSort('in_good_standing')">
                 <span>In Good Standing</span>
                 <em v-if="sortClmn === 'in_good_standing' && sortType === 'desc'" class="bi bi-sort-alpha-up"></em>

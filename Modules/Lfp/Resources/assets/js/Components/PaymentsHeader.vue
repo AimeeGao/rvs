@@ -6,6 +6,9 @@
         <th scope="col">
             <span>First Name</span>
         </th>
+        <th scope="col">
+            <span>SIN</span>
+        </th>
         <th scope="col" style="min-width: 130px;">
             <a href="#" @click="switchSort('profession')">
                 <span>Profession</span>

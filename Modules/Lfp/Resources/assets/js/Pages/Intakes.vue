@@ -32,6 +32,7 @@
                                     <tr v-for="row in results.data">
                                         <td><Link :href="'/lfp/intakes/' + row.id">{{ studentLastName(row.last_name) }}</Link></td>
                                         <td>{{ row.first_name }}</td>
+                                        <td>{{ row.sin }}</td>
                                         <td>{{ row.in_good_standing }}</td>
                                         <td>{{ row.intake_status }}</td>
                                         <td>{{ cleanDate(row.proposed_registration_date) }}</td>
