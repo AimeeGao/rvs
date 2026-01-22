@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo "Start entrypoint file"
 
@@ -15,6 +16,16 @@ echo "ENV_ARG: ${ENV_ARG}"
 
 # echo "Install composer"
 # composer dump-autoload
+
+# Run DB migrations (optional toggle)
+if [ "${RUN_MIGRATIONS}" = "true" ]; then
+  echo "Running LFP migrations..."
+  cd /var/www/html
+  php artisan migrate --database=lfp --force
+  echo "Migrations completed."
+else
+  echo "RUN_MIGRATIONS not set to true; skipping migrations."
+fi
 
 chmod 766 /var/www/html/probe-check.sh
 

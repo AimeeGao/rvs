@@ -113,6 +113,8 @@ objects:
               env:
               - name: "ENV_ARG"
                 value: "hi there"
+              - name: RUN_MIGRATIONS
+                value: "true"
 
 
   - kind: CronJob
