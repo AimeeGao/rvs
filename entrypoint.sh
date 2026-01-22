@@ -21,7 +21,8 @@ echo "ENV_ARG: ${ENV_ARG}"
 if [ "${RUN_MIGRATIONS}" = "true" ]; then
   echo "Running LFP migrations..."
   cd /var/www/html
-  php artisan migrate --database=lfp --force
+  LFP_CONNECTION="${DB_DATABASE_LFP:-lfp}"
+  php artisan migrate --database="${LFP_CONNECTION}" --force
   echo "Migrations completed."
 else
   echo "RUN_MIGRATIONS not set to true; skipping migrations."
