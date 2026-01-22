@@ -110,11 +110,7 @@ jobs:
       - name: Log in to OpenShift
         run: |
           oc login --token=${{ secrets.SA_TOKEN }} --server=https://api.silver.devops.gov.bc.ca:6443
-      # Run LFP database migrations
-      - name: Run LFP Database Migrations
-        working-directory: "./openshift"
-        run: |
-          make migrate-lfp
+      
       # Deploy the RVS.
       - name: Deploy RVS dev
         working-directory: "./openshift"
