@@ -24,3 +24,6 @@ package-lock.json
 /public/js
 docker-compose.yml
 /development
+docker-*
+Dockerfile.local
+.claude

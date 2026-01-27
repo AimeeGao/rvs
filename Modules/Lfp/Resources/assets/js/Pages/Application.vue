@@ -45,7 +45,7 @@
                                 </ul>
                                 <div class="tab-content" id="myStudentTabContent">
                                     <div class="tab-pane fade" :class="activeTab==='form' ? 'active show':''" id="form-tab-pane" role="tabpanel" aria-labelledby="form-tab" tabindex="2">
-                                        <ApplicationEditFormTab v-if="activeTab==='form'" :student="student[student.length - 1]" :utils="utils" :result="result" :app="app"></ApplicationEditFormTab>
+                                        <ApplicationEditFormTab v-if="activeTab==='form'" :student="student.length > 0 ? student[student.length - 1] : {}" :utils="utils" :result="result" :app="app"></ApplicationEditFormTab>
                                     </div>
                                     <div class="tab-pane fade" :class="activeTab==='payment' ? 'active show':''" id="payment-tab-pane" role="tabpanel" aria-labelledby="payment-tab" tabindex="4">
                                         <ApplicationEditPaymentsTab v-if="activeTab==='payment'" :utils="utils" :payments="result.payments" :app="app"></ApplicationEditPaymentsTab>

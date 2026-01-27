@@ -60,13 +60,23 @@ class LfpController extends Controller
     public function show(Lfp $lfp): Response {
         $lfp = Lfp::with('payments', 'intake')->where('id', $lfp->id)->first();
 
-        $qry = env('LFP_QUERY1').$lfp->sin;
-        $student = DB::connection('oracle')->select($qry);
+        // Try to get Oracle data, but continue if connection fails
+        $student = [];
+        try {
+            $qry = env('LFP_QUERY1').$lfp->sin;
+            $student = DB::connection('oracle')->select($qry);
+        } catch (\Exception $e) {
+            \Log::warning('Oracle connection failed for student data: ' . $e->getMessage());
+        }
 
         $application = [];
         if(!is_null($lfp->app_idx)){
-            $qry = env('LFP_SFA_APP').$lfp->app_idx;
-            $application = DB::connection('oracle')->select($qry);
+            try {
+                $qry = env('LFP_SFA_APP').$lfp->app_idx;
+                $application = DB::connection('oracle')->select($qry);
+            } catch (\Exception $e) {
+                \Log::warning('Oracle connection failed for application data: ' . $e->getMessage());
+            }
         }
         $utils_array = [];
         foreach(Util::where('active_flag', true)->orderBy('field_name', 'asc')->get() as $u){
@@ -164,8 +174,12 @@ class LfpController extends Controller
 
         $sfasInd = [];
         if(!empty($sins)) {
-            $rawSfasInd = $newLfp->sfasInd($sins->toArray());
-            $sfasInd = collect($rawSfasInd)->keyBy('sin');
+            try {
+                $rawSfasInd = $newLfp->sfasInd($sins->toArray());
+                $sfasInd = collect($rawSfasInd)->keyBy('sin');
+            } catch (\Exception $e) {
+                \Log::warning('Oracle connection failed for SFAS individual data: ' . $e->getMessage());
+            }
         }
         foreach ($lfps as $lfp) {
             $lfp->sfas_ind = $sfasInd[$lfp->sin] ?? null;
@@ -176,8 +190,12 @@ class LfpController extends Controller
 
         $sfasApps = [];
         if(!empty($apps)) {
-            $rawSfasApps = $newLfp->sfasApp($apps->toArray());
-            $sfasApps = collect($rawSfasApps)->keyBy('pl_loan_forgiveness_app_idx');
+            try {
+                $rawSfasApps = $newLfp->sfasApp($apps->toArray());
+                $sfasApps = collect($rawSfasApps)->keyBy('pl_loan_forgiveness_app_idx');
+            } catch (\Exception $e) {
+                \Log::warning('Oracle connection failed for SFAS app data: ' . $e->getMessage());
+            }
         }
         // inject sfas app data into applications
         foreach ($lfps as $lfp) {

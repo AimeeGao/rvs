@@ -110,6 +110,7 @@ jobs:
       - name: Log in to OpenShift
         run: |
           oc login --token=${{ secrets.SA_TOKEN }} --server=https://api.silver.devops.gov.bc.ca:6443
+      # updated to remove migrate-lfp step
       # Deploy the RVS.
       - name: Deploy RVS dev
         working-directory: "./openshift"

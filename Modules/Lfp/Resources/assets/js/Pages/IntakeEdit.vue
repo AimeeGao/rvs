@@ -122,6 +122,13 @@
                                         <option v-for="u in utils['Employment Status']" :value="u">{{ u }}</option>
                                     </BreezeSelect>
                                 </div>
+                                <div class="col-md-3">
+                                    <BreezeLabel for="selectBothEligibility" class="form-label" value="Both Eligibility Status" />
+                                    <BreezeSelect class="form-select" id="selectBothEligibility" v-model.number="intakeForm.both_eligibility_status" :disabled="isFormDisabled">
+                                        <option :value="0">No</option>
+                                        <option :value="1">Yes</option>
+                                    </BreezeSelect>
+                                </div>
 
                                 <div v-if="intakeForm.intake_status === 'Denied'" class="col-md-12">
                                     <BreezeLabel for="selectDenialReason" class="form-label" value="Denial Reason" />
