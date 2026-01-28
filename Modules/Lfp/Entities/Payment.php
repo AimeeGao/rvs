@@ -52,6 +52,9 @@ class Payment extends ModuleModel
     {
         if(empty($payIds)) return null;
 
+        //return DB::connection('oracle')
+        //    ->select(env("LFP_SFA_PAY_TBL") . "(" . implode(",", $payIds) . ")");
+
         $qry = env("LFP_SFA_PAY_TBL");
         if (empty($qry)) {
             return null;
