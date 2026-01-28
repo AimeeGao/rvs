@@ -67,8 +67,21 @@ class Lfp extends ModuleModel
     {
         if(empty($sin)) return null;
 
-        return DB::connection('oracle')
-            ->select(env("LFP_QUERY2") . "(" . implode(",", $sin) . ")");
+        //return DB::connection('oracle')
+        //    ->select(env("LFP_QUERY2") . "(" . implode(",", $sin) . ")");
+
+        $qry = env("LFP_QUERY2");
+        if (empty($qry)) {
+            return null;
+        }
+
+        try {
+            return DB::connection('oracle')
+                ->select($qry . "(" . implode(",", $sin) . ")");
+        } catch (\Exception $e) {
+            \Log::warning('Oracle connection failed for SFAS individual data: ' . $e->getMessage());
+            return null;
+        }
     }
 
     /**
@@ -80,8 +93,21 @@ class Lfp extends ModuleModel
     {
         if(empty($apps)) return null;
 
-        return DB::connection('oracle')
-            ->select(env("LFP_SFA_APPS") . "(" . implode(",", $apps) . ")");
+        //return DB::connection('oracle')
+        //    ->select(env("LFP_SFA_APPS") . "(" . implode(",", $apps) . ")");
+
+        $qry = env("LFP_SFA_APPS");
+        if (empty($qry)) {
+            return null;
+        }
+
+        try {
+            return DB::connection('oracle')
+                ->select($qry . "(" . implode(",", $apps) . ")");
+        } catch (\Exception $e) {
+            \Log::warning('Oracle connection failed for SFAS app data: ' . $e->getMessage());
+            return null;
+        }
     }
 
     /**
