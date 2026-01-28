@@ -52,8 +52,21 @@ class Payment extends ModuleModel
     {
         if(empty($payIds)) return null;
 
-        return DB::connection('oracle')
-            ->select(env("LFP_SFA_PAY_TBL") . "(" . implode(",", $payIds) . ")");
+        //return DB::connection('oracle')
+        //    ->select(env("LFP_SFA_PAY_TBL") . "(" . implode(",", $payIds) . ")");
+
+        $qry = env("LFP_SFA_PAY_TBL");
+        if (empty($qry)) {
+            return null;
+        }
+
+        try {
+            return DB::connection('oracle')
+                ->select($qry . "(" . implode(",", $payIds) . ")");
+        } catch (\Exception $e) {
+            \Log::warning('Oracle connection failed for SFAS payment data: ' . $e->getMessage());
+            return null;
+        }
     }
 
 
@@ -62,6 +75,16 @@ class Payment extends ModuleModel
      */
     public function getSfasPaymentAttrAttribute(): object|null
     {
-        return is_null($this->pay_idx) ? null : $this->sfasPayment([$this->pay_idx])[0];
+        //return is_null($this->pay_idx) ? null : $this->sfasPayment([$this->pay_idx])[0];
+        if (is_null($this->pay_idx)) {
+            return null;
+        }
+
+        $sfasPayments = $this->sfasPayment([$this->pay_idx]);
+        if (empty($sfasPayments)) {
+            return null;
+        }
+
+        return $sfasPayments[0];
     }
 }
