@@ -183,9 +183,9 @@
                                 </div>
                                 <div class="col-md-3">
                                     <BreezeLabel for="selectBothEligibility" class="form-label" value="Both Eligibility" />
-                                    <BreezeSelect class="form-select" id="selectBothEligibility" v-model.number="editPaymentForm.both_eligibility_status">
-                                        <option :value="0">No</option>
-                                        <option :value="1">Yes</option>
+                                    <BreezeSelect class="form-select" id="selectBothEligibility" v-model="editPaymentForm.both_eligibility_status">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
                                     </BreezeSelect>
                                 </div>
 
