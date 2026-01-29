@@ -24,6 +24,15 @@ class Payment extends ModuleModel
     protected $appends = ['sfas_payment_attr'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'both_eligibility_status' => 'boolean',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
