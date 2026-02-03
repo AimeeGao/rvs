@@ -247,8 +247,15 @@ export default {
         },
         updatePayment: function(i)
         {
-            this.editPaymentForm = useForm(this.payments[i]);
+            /*this.editPaymentForm = useForm(this.payments[i]);
             this.editPaymentForm.proposed_pay_amount = this.$formatAmount(this.editPaymentForm.proposed_pay_amount);
+            $("#editPaymentModal").modal('show');*/
+            const p = this.payments[i];
+            this.editPaymentForm = useForm({
+                ...p,
+                both_eligibility_status: p.both_eligibility_status ?? false, // ensure boolean is present
+            });
+            this.editPaymentForm.proposed_pay_amount = this.$formatAmount(this.editPaymentForm.proposed_pay_amount);    
             $("#editPaymentModal").modal('show');
         },
         editPayment: function ()
