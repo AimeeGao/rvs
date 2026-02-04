@@ -69,22 +69,11 @@ class PaymentEditRequest extends FormRequest
      *
      * @return void
      */
-    /*#[Override]
+    #[Override]
     protected function prepareForValidation(): void {
         // Convert both_eligibility_status to boolean
         if ($this->has('both_eligibility_status')) {
             $this->merge(['both_eligibility_status' => filter_var($this->both_eligibility_status, FILTER_VALIDATE_BOOLEAN)]);
         }
-    }*/
-    #[Override]
-    protected function prepareForValidation(): void {
-        $this->merge([
-            // Ensure the flag is always present as a boolean (default false when null/missing)
-            'both_eligibility_status' => filter_var(
-                $this->input('both_eligibility_status', false),
-                FILTER_VALIDATE_BOOLEAN
-            ),
-        ]);
     }
-    
 }
