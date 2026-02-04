@@ -122,9 +122,9 @@ tr {
             </div>
             <div class="col-md-6">
                 <BreezeLabel for="selectBothEligibility" class="form-label" value="Both Eligibility Status" />
-                <BreezeSelect class="form-select" id="selectBothEligibility" v-model.number="editForm.both_eligibility_status">
-                    <option :value="0">No</option>
-                    <option :value="1">Yes</option>
+                <BreezeSelect class="form-select" id="selectBothEligibility" v-model="editForm.both_eligibility_status">
+                    <option :value="false">No</option>
+                    <option :value="true">Yes</option>
                 </BreezeSelect>
             </div>
 

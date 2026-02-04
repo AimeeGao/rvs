@@ -157,35 +157,35 @@
                                 <!--                                'sfas_pay_status' => 'nullable',
                                 'oc_pay_status' => 'nullable',-->
 
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <BreezeLabel for="selectCommunity" class="form-label" value="Community" />
                                     <BreezeSelect class="form-select" id="selectCommunity" v-model="editPaymentForm.community">
                                         <option v-for="u in utils['Community']" :value="u">{{ u }}</option>
                                     </BreezeSelect>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <BreezeLabel for="selectProfession" class="form-label" value="Profession" />
                                     <BreezeSelect class="form-select" id="selectProfession" v-model="editPaymentForm.profession">
                                         <option v-for="u in utils['Profession']" :value="u">{{ u }}</option>
                                     </BreezeSelect>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <BreezeLabel for="selectEmployer" class="form-label" value="Employer" />
                                     <BreezeSelect class="form-select" id="selectEmployer" v-model="editPaymentForm.employer">
                                         <option v-for="u in utils['Employer']" :value="u">{{ u }}</option>
                                     </BreezeSelect>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <BreezeLabel for="selectEmploymentStatus" class="form-label" value="Employment Status" />
                                     <BreezeSelect class="form-select" id="selectEmploymentStatus" v-model="editPaymentForm.employment_status">
                                         <option v-for="u in utils['Employment Status']" :value="u">{{ u }}</option>
                                     </BreezeSelect>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <BreezeLabel for="selectBothEligibility" class="form-label" value="Both Eligibility" />
-                                    <BreezeSelect class="form-select" id="selectBothEligibility" v-model.number="editPaymentForm.both_eligibility_status">
-                                        <option :value="0">No</option>
-                                        <option :value="1">Yes</option>
+                                    <BreezeSelect class="form-select" id="selectBothEligibility" v-model="editPaymentForm.both_eligibility_status">
+                                        <option :value="false">No</option>
+                                        <option :value="true">Yes</option>
                                     </BreezeSelect>
                                 </div>
 
